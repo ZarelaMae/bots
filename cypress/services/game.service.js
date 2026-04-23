@@ -77,3 +77,17 @@ export function refreshBalanceFromCustomer(testData, customerToken, gameClient) 
     }
   })
 }
+
+export function resetPasswordCustomer(testData,customerToken, gameClientId) {
+  return cy.request({
+    method: "POST",
+    url: `${testData.apiUrl}/api/game-client/reset-password`,
+    headers: {
+          Authorization: `Bearer ${customerToken}`
+        },
+    body: {
+      _id: gameClientId
+    },
+    failOnStatusCode: false
+  })
+}

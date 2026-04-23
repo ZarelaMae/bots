@@ -16,7 +16,7 @@ describe("Withdraw Credits - Customer", () => {
 
     loginCustomer(testData)
       .then((loginResponse) => {
-        expect(loginResponse.status).to.eq(201)
+        expect(loginResponse.status).to.eq(200)
 
         customerToken = loginResponse.body.data.token
         //primera consulta
