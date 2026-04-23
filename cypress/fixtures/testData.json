@@ -1,0 +1,28 @@
+{
+  "companyId": "650cbacb5b27367205467e2e",
+  "apiUrl": "https://api.playplayplay.club",
+  "customer": {
+    "emailOrUsername": "zarelamae16@gmail.com",
+    "password": "16Mayo17.1@",
+    "username": "Zarela"
+  },
+  "admin": {
+    "username": "root",
+    "password": "Root2023@Backendv1",
+    "timeZone": "America/Chicago"
+  },
+  "game": {
+    "gamesCompanyId": "69e40e60446f64ab43ec3095",
+    "expectedName": "Jackpot Frenzy"
+  },
+  "addCredits": {
+    "amount": 1,
+    "timeZone": "America/Lima",
+    "type": "Add Credits"
+  },
+  "withdrawCredits": {
+    "amount": 1,
+    "timeZone": "America/Lima",
+    "type": "Remove Credits"
+  }
+}
