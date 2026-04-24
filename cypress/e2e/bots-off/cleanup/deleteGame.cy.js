@@ -13,10 +13,12 @@ describe("Cleanup - Delete Game Client sin bot", () => {
   let gameClientId
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Eliminar game client de customer sin bot", () => {
     const selectedGameData = testData.games.find(

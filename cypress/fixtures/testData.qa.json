@@ -1,0 +1,53 @@
+{
+  "companyId": "650cbacb5b27367205467e2e",
+  "apiUrl": "https://api.playplayplay.club",
+  "selectedGameId": 3,
+  "selectedGameNote": "Cambiar este valor para elegir el juego a probar",
+  "games": [
+    {
+      "id": 1,
+      "gamesCompanyId": "69e40e60446f64ab43ec3095",
+      "expectedName": "Jackpot Frenzy"
+    },
+    {
+      "id": 2,
+      "gamesCompanyId": "69e40e07446f64ab43ec3073",
+      "expectedName": "Jackpot Carnival"
+    },
+    {
+      "id": 3,
+      "gamesCompanyId": "69e40e6e446f64ab43ec30a0",
+      "expectedName": "Fish Glory"
+    },
+    {
+      "id": 4,
+      "gamesCompanyId": "69e40e80446f64ab43ec30a7",
+      "expectedName": "Legend Fire"
+    }
+  ],
+  "customer": {
+    "emailOrUsername": "zarelamae16@gmail.com",
+    "password": "16Mayo17.1@",
+    "username": "Zarela"
+  },
+  "admin": {
+    "username": "root",
+    "password": "Root2023@Backendv1",
+    "timeZone": "America/Chicago"
+  },
+  "addCredits": {
+    "amount": 1,
+    "timeZone": "America/Lima",
+    "type": "Add Credits"
+  },
+  "withdrawCredits": {
+    "amount": 1,
+    "timeZone": "America/Lima",
+    "type": "Remove Credits"
+  },
+  "gameRequest": {
+    "gameMobileId": "4156",
+    "amount": 0,
+    "kiosk": "play"
+  }
+}

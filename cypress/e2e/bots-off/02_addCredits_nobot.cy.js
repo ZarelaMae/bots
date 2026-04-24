@@ -6,10 +6,12 @@ describe("Add Credits - Customer sin bot", () => {
   let customerToken
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Agregar créditos a un game sin bot", () => {
     const selectedGame = testData.games.find(

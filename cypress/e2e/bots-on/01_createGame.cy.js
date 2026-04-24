@@ -6,7 +6,9 @@ describe("Create Game - Customer", () => {
   let customerToken
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
+    const env = Cypress.env("env") || "qa"
+
+    cy.fixture(`testData.${env}`).then((data) => {
       testData = data
     })
   })

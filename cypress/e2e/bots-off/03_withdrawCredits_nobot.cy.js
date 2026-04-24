@@ -6,10 +6,12 @@ describe("Withdraw Credits - Customer", () => {
   let customerToken
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Quitar créditos a un game sin bot", () => {
     let previousAmount

@@ -11,10 +11,12 @@ describe("Balance changed from Manager", () => {
   let testData
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Error Controlado - Balance changed from Manager", () => {
     let managerToken

@@ -6,10 +6,12 @@ describe("Create Game - Customer sin bot", () => {
   let customerToken
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Crear game para customer sin bot", () => {
   const selectedGame = testData.games.find(

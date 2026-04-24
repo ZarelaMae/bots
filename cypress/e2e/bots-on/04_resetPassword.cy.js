@@ -6,10 +6,12 @@ describe("Reset Password - Customer Game", () => {
   let customerToken
 
   beforeEach(() => {
-    cy.fixture("testData").then((data) => {
-      testData = data
+      const env = Cypress.env("env") || "qa"
+
+      cy.fixture(`testData.${env}`).then((data) => {
+        testData = data
+      })
     })
-  })
 
   it("Procesar solicitud de reset password de un Game existente", () => {
     let gameClientId
