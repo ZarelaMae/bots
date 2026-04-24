@@ -1,4 +1,4 @@
-export function createGameFromCustomer(testData, customerToken) {
+export function createGameFromCustomer(testData, customerToken, selectedGame) {
   return cy.request({
     method: "POST",
     url: `${testData.apiUrl}/api/game-client/by-self/array`,
@@ -8,7 +8,7 @@ export function createGameFromCustomer(testData, customerToken) {
     failOnStatusCode: false,
     body: {
       username: testData.customer.username,
-      gamesCompanyId: [testData.game.gamesCompanyId]
+      gamesCompanyId: [selectedGame.gamesCompanyId]
     }
   })
 }
@@ -34,7 +34,7 @@ export function addCreditsFromCustomer(testData, customerToken, gameClient) {
     failOnStatusCode: false,
     body: {
       amount: testData.addCredits.amount,
-      gameName: testData.game.expectedName,
+      gameName: gameClient.gameCompanyId.gameCatalogId.name,
       type: testData.addCredits.type,
       gameMobileId: gameClient.gameMobileId,
       gameClientId: gameClient._id,
@@ -53,7 +53,7 @@ export function withdrawCreditsFromCustomer(testData, customerToken, gameClient)
     failOnStatusCode: false,
     body: {
       amount: testData.withdrawCredits.amount,
-      gameName: testData.game.expectedName,
+      gameName: gameClient.gameCompanyId.gameCatalogId.name,
       type: testData.withdrawCredits.type,
       gameMobileId: gameClient.gameMobileId,
       gameClientId: gameClient._id,
@@ -78,13 +78,13 @@ export function refreshBalanceFromCustomer(testData, customerToken, gameClient) 
   })
 }
 
-export function resetPasswordCustomer(testData,customerToken, gameClientId) {
+export function resetPasswordCustomer(testData, customerToken, gameClientId) {
   return cy.request({
     method: "POST",
     url: `${testData.apiUrl}/api/game-client/reset-password`,
     headers: {
-          Authorization: `Bearer ${customerToken}`
-        },
+      Authorization: `Bearer ${customerToken}`
+    },
     body: {
       _id: gameClientId
     },

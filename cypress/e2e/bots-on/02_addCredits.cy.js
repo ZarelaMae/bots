@@ -1,5 +1,5 @@
-import { loginCustomer } from "../services/auth.service"
-import { getCustomerGames, addCreditsFromCustomer } from "../services/game.service"
+import { loginCustomer } from "../../services/auth.service"
+import { getCustomerGames, addCreditsFromCustomer } from "../../services/game.service"
 
 describe("Add Credits - Customer", () => {
   let testData
@@ -11,8 +11,13 @@ describe("Add Credits - Customer", () => {
     })
   })
 
-  it("ADD Credits a un Game existente", () => {
+  it("ADD Credits a un Game existente con Bot", () => {
     let previousAmount
+
+    const selectedGame = testData.games.find(
+      game => game.id === testData.selectedGameId
+    )
+    expect(selectedGame).to.exist
 
     loginCustomer(testData)
       .then((loginResponse) => {
@@ -27,9 +32,8 @@ describe("Add Credits - Customer", () => {
         expect(gamesResponse.status).to.eq(200)
         expect(gamesResponse.body.data).to.exist
 
-        // elegir game
         const gameClient = gamesResponse.body.data.find(
-          g => g.gameCompanyId.gameCatalogId.name === testData.game.expectedName
+          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
         )
 
         expect(gameClient).to.exist
@@ -51,6 +55,7 @@ describe("Add Credits - Customer", () => {
         expect(clientGame._id).to.exist
         expect(clientGame.gameMobileId).to.exist
         expect(clientGame.status).to.eq("Active")
+        expect(clientGame.gameCompanyId._id).to.eq(selectedGame.gamesCompanyId)
 
         const newAmount = clientGame.amount
         expect(newAmount).to.eq(previousAmount + testData.addCredits.amount)

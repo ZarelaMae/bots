@@ -1,5 +1,5 @@
-import { loginCustomer } from "../services/auth.service"
-import { getCustomerGames, withdrawCreditsFromCustomer, refreshBalanceFromCustomer } from "../services/game.service"
+import { loginCustomer } from "../../services/auth.service"
+import { getCustomerGames, withdrawCreditsFromCustomer, refreshBalanceFromCustomer } from "../../services/game.service"
 
 describe("Withdraw Credits - Customer", () => {
   let testData
@@ -14,42 +14,45 @@ describe("Withdraw Credits - Customer", () => {
   it("Withdraw Credits de un Game existente", () => {
     let previousAmount
 
+    const selectedGame = testData.games.find(
+      game => game.id === testData.selectedGameId
+    )
+    expect(selectedGame).to.exist
+
     loginCustomer(testData)
       .then((loginResponse) => {
         expect(loginResponse.status).to.eq(200)
 
         customerToken = loginResponse.body.data.token
-        //primera consulta
         return getCustomerGames(testData, customerToken)
       })
       .then((gamesResponse) => {
-      expect(gamesResponse.status).to.eq(200)
-      expect(gamesResponse.body.data).to.exist
-      const gameClient = gamesResponse.body.data.find(
-        g => g.gameCompanyId.gameCatalogId.name === testData.game.expectedName
-      )
-      expect(gameClient).to.exist
+        expect(gamesResponse.status).to.eq(200)
+        expect(gamesResponse.body.data).to.exist
 
-        // Refresh balance
+        const gameClient = gamesResponse.body.data.find(
+          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
+        )
+
+        expect(gameClient).to.exist
+
         return refreshBalanceFromCustomer(testData, customerToken, gameClient)
       })
       .then((refreshResponse) => {
-      expect(refreshResponse.status).to.eq(201)
-      expect(refreshResponse.body.status).to.eq(200)
-      expect(refreshResponse.body.message).to.eq("Success")
+        expect(refreshResponse.status).to.eq(201)
+        expect(refreshResponse.body.status).to.eq(200)
+        expect(refreshResponse.body.message).to.eq("Success")
 
-        //volver a consultar actualizado
         return getCustomerGames(testData, customerToken)
       })
       .then((gamesResponse) => {
         const gameClient = gamesResponse.body.data.find(
-          g => g.gameCompanyId.gameCatalogId.name === testData.game.expectedName
+          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
         )
 
         expect(gameClient).to.exist
         previousAmount = gameClient.amount
 
-        // saldo suficiente
         expect(previousAmount).to.be.at.least(testData.withdrawCredits.amount)
 
         return withdrawCreditsFromCustomer(testData, customerToken, gameClient)

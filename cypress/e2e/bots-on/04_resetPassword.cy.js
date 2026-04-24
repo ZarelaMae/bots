@@ -1,5 +1,5 @@
-import { loginCustomer } from "../services/auth.service"
-import { getCustomerGames, resetPasswordCustomer } from "../services/game.service"
+import { loginCustomer } from "../../services/auth.service"
+import { getCustomerGames, resetPasswordCustomer } from "../../services/game.service"
 
 describe("Reset Password - Customer Game", () => {
   let testData
@@ -13,6 +13,11 @@ describe("Reset Password - Customer Game", () => {
 
   it("Procesar solicitud de reset password de un Game existente", () => {
     let gameClientId
+
+    const selectedGame = testData.games.find(
+      game => game.id === testData.selectedGameId
+    )
+    expect(selectedGame).to.exist
 
     loginCustomer(testData)
       .then((loginResponse) => {
@@ -28,7 +33,7 @@ describe("Reset Password - Customer Game", () => {
         expect(gamesResponse.body.data).to.exist
 
         const gameClient = gamesResponse.body.data.find(
-          g => g.gameCompanyId.gameCatalogId.name === testData.game.expectedName
+          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
         )
 
         expect(gameClient).to.exist
@@ -47,11 +52,10 @@ describe("Reset Password - Customer Game", () => {
 
         expect(data._id).to.eq(gameClientId)
         expect(data.customerUsername).to.eq(testData.customer.username)
-        expect(data.gameCompanyId.gameCatalogId.name).to.eq(testData.game.expectedName)
-
+        expect(data.gameCompanyId._id).to.eq(selectedGame.gamesCompanyId)
+        expect(data.gameCompanyId.gameCatalogId.name).to.eq(selectedGame.expectedName)
         expect(data.status).to.eq("Active")
         expect(data.state).to.eq("Active")
-
         expect(data.gameCompanyId.resetPassword).to.eq(true)
       })
   })

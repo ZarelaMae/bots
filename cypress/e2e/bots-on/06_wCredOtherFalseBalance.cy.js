@@ -1,7 +1,11 @@
-import { loginManager, loginCustomer } from "../services/auth.service"
-import { findCustomerByManager, getCustomerGamesFromManager, updateCustomerGameAmountFromManager
-} from "../services/manager.service"
-import { getCustomerGames, withdrawCreditsFromCustomer, refreshBalanceFromCustomer  } from "../services/game.service"
+import { loginManager, loginCustomer } from "../../services/auth.service"
+import {
+  findCustomerByManager,
+  getCustomerGamesFromManager,
+  updateCustomerGameAmountFromManager,
+  chooseCorrectCompany
+} from "../../services/manager.service"
+import { getCustomerGames, withdrawCreditsFromCustomer, refreshBalanceFromCustomer } from "../../services/game.service"
 
 describe("Balance changed from Manager", () => {
   let testData
@@ -20,6 +24,11 @@ describe("Balance changed from Manager", () => {
     let updatedGame
     const manualAmount = 5
 
+    const selectedGame = testData.games.find(
+      game => game.id === testData.selectedGameId
+    )
+    expect(selectedGame).to.exist
+
     loginManager(testData)
       .then((loginResponse) => {
         expect(loginResponse.status).to.eq(201)
@@ -27,24 +36,33 @@ describe("Balance changed from Manager", () => {
 
         managerToken = loginResponse.body.data.token
 
+        return chooseCorrectCompany(testData, managerToken)
+       })
+       .then((companyResponse) => {
+        expect(companyResponse.status).to.eq(201)
+        expect(companyResponse.body.status).to.eq(200)
+
+        managerToken = companyResponse.body.data.token
+        expect(managerToken).to.exist
+
         return findCustomerByManager(testData, managerToken)
       })
-      .then((customerResponse) => {
-        expect(customerResponse.status).to.eq(200)
-        expect(customerResponse.body.data).to.exist
-        expect(customerResponse.body.data.data).to.exist
-        expect(customerResponse.body.data.data.length).to.be.greaterThan(0)
+     .then((customerResponse) => {
+       expect(customerResponse.status).to.eq(200)
+       expect(customerResponse.body.data).to.exist
+       expect(customerResponse.body.data.data).to.exist
 
-        const customers = customerResponse.body.data.data
+       const customers = customerResponse.body.data.data
+       expect(customers.length).to.be.greaterThan(0)
 
-        const customer = customers.find(c =>
-            c.email === testData.customer.emailOrUsername ||
-            c.username === testData.customer.emailOrUsername
-        )
-        expect(customer).to.exist
+       const customer = customers.find(c =>
+         c.email === testData.customer.emailOrUsername ||
+         c.username === testData.customer.username
+       )
+
+       expect(customer).to.exist
 
         customerId = customer._id
-
         expect(customerId).to.exist
 
         return getCustomerGamesFromManager(testData, managerToken, customerId)
@@ -57,7 +75,7 @@ describe("Balance changed from Manager", () => {
         const games = gamesResponse.body.data
 
         const game = games.find(
-          g => g.gameCompanyId?.gameCatalogId?.name === testData.game.expectedName
+          g => g.gameCompanyId?._id === selectedGame.gamesCompanyId
         )
         expect(game).to.exist
 
@@ -69,7 +87,14 @@ describe("Balance changed from Manager", () => {
         expect(gameMobileId).to.exist
         expect(kiosk).to.exist
 
-        return updateCustomerGameAmountFromManager(testData, managerToken, gameClientId, gameMobileId, kiosk, manualAmount)
+        return updateCustomerGameAmountFromManager(
+          testData,
+          managerToken,
+          gameClientId,
+          gameMobileId,
+          kiosk,
+          manualAmount
+        )
       })
       .then((updateResponse) => {
         expect(updateResponse.status).to.eq(200)
@@ -92,7 +117,7 @@ describe("Balance changed from Manager", () => {
         expect(customerGamesResponse.body.data).to.exist
 
         updatedGame = customerGamesResponse.body.data.find(
-          g => g.gameCompanyId?.gameCatalogId?.name === testData.game.expectedName
+          g => g.gameCompanyId?._id === selectedGame.gamesCompanyId
         )
 
         expect(updatedGame).to.exist
@@ -105,7 +130,9 @@ describe("Balance changed from Manager", () => {
         expect(withdrawResponse.status).to.eq(500)
         expect(withdrawResponse.body.message).to.include("Insufficient credit. Refresh balance")
         cy.log(`Response message: ${withdrawResponse.body.message}`)
+
         return refreshBalanceFromCustomer(testData, customerToken, updatedGame)
+
         // que permita pasar
         /*expect([200, 201, 500]).to.include(withdrawResponse.status)
         cy.log(`Response message: ${withdrawResponse.body.message}`)
