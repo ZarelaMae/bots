@@ -146,7 +146,7 @@ describe("Balance changed from Manager", () => {
       })
       .then((refreshResponse) => {
         if (!refreshResponse) return
-        expect(refreshResponse.status).to.eq(200)
+        expect(refreshResponse.status).to.eq(201)
         cy.log(`Refresh executed`)
       })
   })

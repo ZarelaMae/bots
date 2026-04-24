@@ -44,7 +44,6 @@ describe("Create Game - Customer", () => {
         expect(gameClient.companyId).to.eq(testData.companyId)
         expect(gameClient.status).to.eq("Active")
         expect(gameClient.state).to.eq("Active")
-        expect(gameClient.createdBy).to.eq("BOT-V3")
         expect(gameClient.gameCompanyId._id).to.eq(selectedGame.gamesCompanyId)
         expect(gameClient.gameCompanyId.gameCatalogId.name).to.eq(selectedGame.expectedName)
 

@@ -1,13 +1,13 @@
 {
-  "companyId": "650cbacb5b27367205467e2e",
-  "apiUrl": "https://api.playplayplay.club",
-  "selectedGameId": 3,
+  "companyId": "67c08d2a6827e55261e7b238",
+  "apiUrl": "https://api.backend.biz",
+  "selectedGameId": 1,
   "selectedGameNote": "Cambiar este valor para elegir el juego a probar",
   "games": [
     {
       "id": 1,
-      "gamesCompanyId": "69e40e60446f64ab43ec3095",
-      "expectedName": "Jackpot Frenzy"
+      "gamesCompanyId": "67eebb89807ef6190cf5c7fa",
+      "expectedName": "Ultra Panda"
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "gamesCompanyId": "69e40e6e446f64ab43ec30a0",
+      "gamesCompanyId": "69e5b55bd5fb4f49bbe287dc",
       "expectedName": "Fish Glory"
     },
     {
@@ -28,11 +28,11 @@
   "customer": {
     "emailOrUsername": "zarelamae16@gmail.com",
     "password": "16Mayo17.1@",
-    "username": "Zarela"
+    "username": "zarela"
   },
   "admin": {
     "username": "root",
-    "password": "Root2023@Backendv1",
+    "password": "newPassword2024@backend",
     "timeZone": "America/Chicago"
   },
   "addCredits": {
