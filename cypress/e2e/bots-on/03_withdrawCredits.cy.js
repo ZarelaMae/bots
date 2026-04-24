@@ -1,17 +1,17 @@
 import { loginCustomer } from "../../services/auth.service"
-import { getCustomerGames, withdrawCreditsFromCustomer, refreshBalanceFromCustomer } from "../../services/game.service"
+import { getCustomerGames, withdrawCreditsFromCustomer } from "../../services/game.service"
 
 describe("Withdraw Credits - Customer", () => {
   let testData
   let customerToken
 
   beforeEach(() => {
-      const env = Cypress.env("env") || "qa"
+    const env = Cypress.env("env") || "qa"
 
-      cy.fixture(`testData.${env}`).then((data) => {
-        testData = data
-      })
+    cy.fixture(`testData.${env}`).then((data) => {
+      testData = data
     })
+  })
 
   it("Withdraw Credits de un Game existente", () => {
     let previousAmount
@@ -37,23 +37,10 @@ describe("Withdraw Credits - Customer", () => {
         )
 
         expect(gameClient).to.exist
+        cy.wait(5000)
+        previousAmount = Number(gameClient.amount)
 
-        return refreshBalanceFromCustomer(testData, customerToken, gameClient)
-      })
-      .then((refreshResponse) => {
-        expect(refreshResponse.status).to.eq(201)
-        expect(refreshResponse.body.status).to.eq(200)
-        expect(refreshResponse.body.message).to.eq("Success")
-
-        return getCustomerGames(testData, customerToken)
-      })
-      .then((gamesResponse) => {
-        const gameClient = gamesResponse.body.data.find(
-          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
-        )
-
-        expect(gameClient).to.exist
-        previousAmount = gameClient.amount
+        cy.log(`Saldo antes: ${previousAmount}`)
 
         expect(previousAmount).to.be.at.least(testData.withdrawCredits.amount)
 
@@ -64,9 +51,21 @@ describe("Withdraw Credits - Customer", () => {
         expect(withdrawResponse.body.status).to.eq(200)
         expect(withdrawResponse.body.message).to.eq("Success")
 
-        const newAmount = withdrawResponse.body.data.clientGame.amount
+        return getCustomerGames(testData, customerToken)
+      })
+      .then((gamesResponse) => {
+        const gameAfter = gamesResponse.body.data.find(
+          g => g.gameCompanyId._id === selectedGame.gamesCompanyId
+        )
 
-        expect(newAmount).to.eq(previousAmount - testData.withdrawCredits.amount)
+        expect(gameAfter).to.exist
+
+        const finalAmount = Number(gameAfter.amount)
+
+        cy.log(`Saldo después: ${finalAmount}`)
+
+        expect(finalAmount).to.eq(
+          previousAmount - testData.withdrawCredits.amount)
       })
   })
 })

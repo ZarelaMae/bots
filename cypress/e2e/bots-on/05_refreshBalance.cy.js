@@ -33,7 +33,7 @@ describe("Refresh Balance - Bot", () => {
         )
 
         expect(gameClient).to.exist
-
+        cy.wait(5000)
         return refreshBalanceFromCustomer(testData, customerToken, gameClient)
       })
       .then((refreshResponse) => {

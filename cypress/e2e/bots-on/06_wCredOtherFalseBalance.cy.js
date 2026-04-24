@@ -111,7 +111,7 @@ describe("Balance changed from Manager", () => {
         expect(customerLoginResponse.body.data.token).to.exist
 
         customerToken = customerLoginResponse.body.data.token
-
+        cy.wait(3000)
         return getCustomerGames(testData, customerToken)
       })
       .then((customerGamesResponse) => {
@@ -133,6 +133,7 @@ describe("Balance changed from Manager", () => {
         expect(withdrawResponse.body.message).to.include("nsufficient")
         cy.log(`Response message: ${withdrawResponse.body.message}`)
 
+        cy.wait(4000)
         return refreshBalanceFromCustomer(testData, customerToken, updatedGame)
 
         // que permita pasar

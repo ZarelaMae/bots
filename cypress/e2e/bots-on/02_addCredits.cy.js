@@ -40,7 +40,7 @@ describe("Add Credits - Customer", () => {
 
         expect(gameClient).to.exist
         previousAmount = gameClient.amount
-
+        cy.wait(3000)
         return addCreditsFromCustomer(testData, customerToken, gameClient)
       })
       .then((addCreditsResponse) => {

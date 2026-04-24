@@ -41,7 +41,7 @@ describe("Cancel Movement", () => {
         expect(pendingMovement).to.exist
 
         movementId = pendingMovement._id
-
+        cy.wait(3000)
         return cancelMovementByManager(
           testData,
           managerToken,

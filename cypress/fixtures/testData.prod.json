@@ -1,7 +1,7 @@
 {
-  "companyId": "67c08d2a6827e55261e7b238",
+  "companyId": "650cbacb5b27367205467e2e",
   "apiUrl": "https://api.backend.biz",
-  "selectedGameId": 4,
+  "selectedGameId": 3,
   "selectedGameNote": "Cambiar este valor para elegir el juego a probar",
   "games": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "gamesCompanyId": "68964461423a1d7e915cc347",
+      "gamesCompanyId": "69e5b55bd5fb4f49bbe287dc",
       "expectedName": "Fish Glory"
     },
     {
@@ -27,7 +27,7 @@
   ],
   "customer": {
     "emailOrUsername": "zarelamae16@gmail.com",
-    "password": "16Mayo17.1@",
+    "password": "16Mayo17.2@",
     "username": "zarela"
   },
   "admin": {

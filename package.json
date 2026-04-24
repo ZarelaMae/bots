@@ -6,8 +6,10 @@
   "scripts": {
     "bots-on-flow": "cypress run --spec \"cypress/e2e/bots-on/01_createGame.cy.js,cypress/e2e/bots-on/02_addCredits.cy.js,cypress/e2e/bots-on/03_withdrawCredits.cy.js,cypress/e2e/bots-on/04_resetPassword.cy.js,cypress/e2e/bots-on/06_wCredOtherFalseBalance.cy.js,cypress/e2e/bots-off/cleanup/cancelMovement.cy.js,cypress/e2e/bots-on/05_refreshBalance.cy.js\"",
 
-    "bots-on-flow:prod": "cypress run --env env=prod --spec \"cypress/e2e/bots-on/01_createGame.cy.js,cypress/e2e/bots-on/02_addCredits.cy.js,cypress/e2e/bots-on/03_withdrawCredits.cy.js,cypress/e2e/bots-on/04_resetPassword.cy.js,cypress/e2e/bots-on/06_wCredOtherFalseBalance.cy.js,cypress/e2e/bots-off/cleanup/cancelMovement.cy.js,cypress/e2e/bots-on/05_refreshBalance.cy.js\""
-  },
+    "bots-on-flow:prod": "cypress run --env env=prod --spec \"cypress/e2e/bots-on/01_createGame.cy.js,cypress/e2e/bots-on/02_addCredits.cy.js,cypress/e2e/bots-on/03_withdrawCredits.cy.js,cypress/e2e/bots-on/04_resetPassword.cy.js,cypress/e2e/bots-on/06_wCredOtherFalseBalance.cy.js,cypress/e2e/bots-off/cleanup/cancelMovement.cy.js,cypress/e2e/bots-on/05_refreshBalance.cy.js\"",
+    "bots-on-flo:prod": "cypress run --env env=prod --spec \"cypress/e2e/bots-on/02_addCredits.cy.js,cypress/e2e/bots-on/03_withdrawCredits.cy.js,cypress/e2e/bots-on/04_resetPassword.cy.js,cypress/e2e/bots-on/06_wCredOtherFalseBalance.cy.js,cypress/e2e/bots-off/cleanup/cancelMovement.cy.js,cypress/e2e/bots-on/05_refreshBalance.cy.js\""
+
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -14,7 +14,7 @@ describe("Game Requests - Cleanup", () => {
 
           cy.fixture(`testData.${env}`).then((data) => {
             testData = data
-          })
+
 
         selectedGame = testData.games.find(
           game => game.id === testData.selectedGameId

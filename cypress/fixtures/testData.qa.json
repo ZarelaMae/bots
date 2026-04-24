@@ -1,7 +1,7 @@
 {
   "companyId": "650cbacb5b27367205467e2e",
   "apiUrl": "https://api.playplayplay.club",
-  "selectedGameId": 3,
+  "selectedGameId": 1,
   "selectedGameNote": "Cambiar este valor para elegir el juego a probar",
   "games": [
     {
