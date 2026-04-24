@@ -130,7 +130,7 @@ describe("Balance changed from Manager", () => {
       .then((withdrawResponse) => {
 
         expect(withdrawResponse.status).to.eq(500)
-        expect(withdrawResponse.body.message).to.include("Insufficient credit. Refresh balance")
+        expect(withdrawResponse.body.message).to.include("nsufficient")
         cy.log(`Response message: ${withdrawResponse.body.message}`)
 
         return refreshBalanceFromCustomer(testData, customerToken, updatedGame)

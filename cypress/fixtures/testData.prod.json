@@ -1,7 +1,7 @@
 {
   "companyId": "67c08d2a6827e55261e7b238",
   "apiUrl": "https://api.backend.biz",
-  "selectedGameId": 1,
+  "selectedGameId": 4,
   "selectedGameNote": "Cambiar este valor para elegir el juego a probar",
   "games": [
     {
@@ -11,18 +11,18 @@
     },
     {
       "id": 2,
-      "gamesCompanyId": "69e40e07446f64ab43ec3073",
-      "expectedName": "Jackpot Carnival"
+      "gamesCompanyId": "67eebb6a807ef6190cf5c737",
+      "expectedName": "X-Games"
     },
     {
       "id": 3,
-      "gamesCompanyId": "69e5b55bd5fb4f49bbe287dc",
+      "gamesCompanyId": "68964461423a1d7e915cc347",
       "expectedName": "Fish Glory"
     },
     {
       "id": 4,
-      "gamesCompanyId": "69e40e80446f64ab43ec30a7",
-      "expectedName": "Legend Fire"
+      "gamesCompanyId": "67eebdbc807ef6190cf5d05a",
+      "expectedName": "Orion Stars"
     }
   ],
   "customer": {
